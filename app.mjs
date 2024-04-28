@@ -5,7 +5,7 @@ import {
 
 import express from 'express';
 import cors from 'cors';
-import normalizeUrl from 'normalize-url';
+import normalizePath from 'normalize-path';
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.get("/", (_, res) => {
 
 app.get("/:dominName/*", (req, res) => {
     const { dominName } = req.params;
-    const resourcePath = normalizeUrl(req.params[0]);
+    const resourcePath = normalizePath(req.params[0]);
 
     const queryPath = `data/${dominName}/${resourcePath}.json`;
     if (existsSync(queryPath)) {
