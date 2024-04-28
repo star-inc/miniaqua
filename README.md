@@ -21,14 +21,7 @@ It is not intended for production use.
 
 ```js
 // Fetch API data
-const apiUrl = "http://localhost:3100";
-
-const response = await fetch(apiUrl, {
-  method: "GET",
-  headers: {
-    Authorization: `Basic ${Buffer.from(apiCredentials.username + ":" + apiCredentials.password).toString("base64")}`,
-  },
-});
+const response = await fetch("http://localhost:3100");
 
 // Parse JSON data
 const data = await response.json();

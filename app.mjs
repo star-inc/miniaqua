@@ -5,6 +5,7 @@ import {
 
 import express from 'express';
 import cors from 'cors';
+import normalizeUrl from 'normalize-url';
 
 const app = express();
 
@@ -12,9 +13,13 @@ app.use(cors({
     origin: true,
 }));
 
+app.get("/", (_, res) => {
+    res.send("miniaqua");
+});
+
 app.get("/:dominName/*", (req, res) => {
-    const {dominName} = req.params;
-    const resourcePath = req.params[0];
+    const { dominName } = req.params;
+    const resourcePath = normalizeUrl(req.params[0]);
 
     const queryPath = `data/${dominName}/${resourcePath}.json`;
     if (existsSync(queryPath)) {
@@ -26,4 +31,8 @@ app.get("/:dominName/*", (req, res) => {
     }
 })
 
-app.listen(3100);
+app.listen(3100, () => {
+    console.info("miniaqua");
+    console.info('started on port 3100');
+    console.info('listening at http://localhost:3100');
+});
