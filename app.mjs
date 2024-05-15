@@ -14,7 +14,10 @@ app.use(cors({
 }));
 
 app.get("/", (_, res) => {
-    res.send("miniaqua");
+    res.send(`
+        <h1>miniaqua</h1>
+        <p>The server for static JSON documents.</p>
+    `);
 });
 
 app.get("/:dominName/*", (req, res) => {
@@ -25,7 +28,7 @@ app.get("/:dominName/*", (req, res) => {
     if (existsSync(queryPath)) {
         const text = readFileSync(queryPath);
         const data = JSON.parse(text);
-        res.json(data);
+        res.json({ status: 200, data });
     } else {
         res.status(404).send("Not Found");
     }
